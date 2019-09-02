@@ -1,0 +1,10 @@
+package rules
+import com.brave.model.Applicant
+
+rule "check the Applicant age"
+    when
+        Applicant(age <18)
+        $a: Applicant()
+     then
+        $a.setName("you are below 18");
+     end

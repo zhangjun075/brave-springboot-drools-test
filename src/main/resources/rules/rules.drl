@@ -1,0 +1,18 @@
+package rules
+import com.brave.model.Product
+import com.brave.model.Applicant
+rule "Offer for Diamond"
+    when
+        productObject: Product(type == "diamond")
+    then
+        productObject.setDiscount(15);
+    end
+
+rule "Offer for gold"
+    when
+        productObject: Product(type == "gold")
+    then
+        productObject.setDiscount(25);
+    end
+
+

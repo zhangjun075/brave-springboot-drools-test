@@ -1,0 +1,30 @@
+package file
+import com.brave.model.Room
+import com.brave.model.Alarm
+import com.brave.model.Sprinkler
+import com.brave.model.Fire
+
+rule "when there is a file turn on the Sprinkler"
+    when
+        Fire($room : room)
+        $sprinkler : Sprinkler(room == $room,on == false)
+    then
+        modify($sprinkler){ setOn(true)}
+        System.out.println("Turn on the sprinkler for room "+$room.getName());
+    end
+rule "raise alarm when we have file"
+    when
+        exists Fire()
+    then
+        insert(new Alarm());
+        System.out.println("raise the alarm");
+    end
+rule "everything is ok"
+    when
+        not Alarm()
+        not Sprinkler(on == true)
+    then
+        System.out.println("everything is ok.");
+    end
+
+
